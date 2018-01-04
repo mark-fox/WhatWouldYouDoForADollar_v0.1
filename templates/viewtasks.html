@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{%  block body %}
+    <div class="jumbotron text-center">
+        <h1>View Tasks</h1>
+    </div>
+
+    <div id="activeTasks">
+        <form method="post" action="{{ url_for('sellSoul') }}">
+            <table id="taskTable" width="100%">
+                <thead>
+                    <tr>
+                        <th>Sel</th>
+                        <th>ID</th>
+                        <th>Task</th>
+                        <th>Description</th>
+                        <th>Opened For</th>
+                        <th>Seller</th>
+                        <th>Fare</th>
+                        <th>~Duration</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for task in tasks %}
+                        <tr>
+                            <td><input type="checkbox" name="cbox" value="{{ task.id }}"></td>
+                            <td><a href="task/{{ task.id }}">{{ task.id }}</a></td>
+                            <td>{{ task.taskname }}</td>
+                            <td>{{ task.descript }}</td>
+                            <td>{{ task.opened }}</td>
+{#                            <td>{{ (task.opened // 1000)|timestamp_to_time|datetimeformat('%b %d, %Y %I %M %S') }}</td>#}
+                            <td>{{ task.seller }}</td>
+                            <td>{{ task.fare }}</td>
+                            <td>{{ task.duration }}</td>
+                            <td>{{ task.status }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <input type="submit" value="Call Dibs!"/>
+        </form>
+    </div>
+{% endblock %}
